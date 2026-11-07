@@ -1,0 +1,19 @@
+{
+  "name": "moteles-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Control de uso y limpieza de habitaciones con sensores (ESP32 + Raspberry Pi)",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning src/server.js",
+    "test": "node --test \"test/*.test.js\"",
+    "create-user": "node --disable-warning=ExperimentalWarning tools/create-user.js",
+    "seed-demo": "node --disable-warning=ExperimentalWarning tools/seed-demo.js",
+    "simulate": "node tools/simulate.js",
+    "build-demo": "node tools/build-demo.js",
+    "backup": "node --disable-warning=ExperimentalWarning tools/backup.js"
+  }
+}

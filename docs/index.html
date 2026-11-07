@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Control de Habitaciones</title>
+<style>
+  :root { color-scheme: light dark; --bg: #f4f3ef; --card: #fff; --ink: #1b1c1f; --muted: #62646b; --line: #dcdad3; --accent: #8f6810; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #111215; --card: #1a1c20; --ink: #ececea; --muted: #a0a2a8; --line: #2e3137; --accent: #e9b949; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 "Segoe UI", system-ui, sans-serif; }
+  main { max-width: 820px; margin: 0 auto; padding: 40px 16px 56px; }
+  h1 { font-size: 1.9rem; line-height: 1.2; margin: 0 0 8px; }
+  h2 { font-size: 1.15rem; margin: 32px 0 8px; }
+  p { margin: 8px 0; }
+  .muted { color: var(--muted); }
+  .links { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin-top: 20px; }
+  .links a { display: block; padding: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; color: inherit; text-decoration: none; }
+  .links a:hover { border-color: var(--accent); }
+  .links b { display: block; color: var(--accent); margin-bottom: 2px; }
+  .links span { color: var(--muted); font-size: .92rem; }
+  .wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: var(--card); }
+  th, td { text-align: left; padding: 8px 10px; border: 1px solid var(--line); }
+  th { font-size: .85rem; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Control de Habitaciones para Moteles</h1>
+  <p class="muted">Mide con sensores magnéticos cuánto tiempo pasa cada habitación en uso y en limpieza. Cada habitación lleva un ESP32 con 2 sensores, y una Raspberry Pi en el motel guarda los datos y muestra el panel.</p>
+
+  <div class="links">
+    <a href="demo/"><b>Ver la demo del panel</b><span>Datos simulados, sin iniciar sesión</span></a>
+    <a href="diagrama-conexion.html"><b>Diagrama de conexión</b><span>Sensores, ESP32, habitación y red</span></a>
+    <a id="repo" href="#"><b>Código y documentación</b><span>Servidor, firmware y guía de instalación</span></a>
+  </div>
+
+  <h2>Cómo decide el estado</h2>
+  <div class="wrap"><table>
+    <thead><tr><th>Paso</th><th>Qué pasa</th><th>Panel</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Cortina abierta, puerta cerrada con seguro</td><td>Libre</td></tr>
+      <tr><td>2</td><td>Entra el carro y se cierra la cortina</td><td>Por cobrar</td></tr>
+      <tr><td>3</td><td>Un trabajador cobra y abre la puerta</td><td>Ocupada</td></tr>
+      <tr><td>4</td><td>El cliente se va y la cortina queda abierta 3 minutos</td><td>Limpieza</td></tr>
+      <tr><td>5</td><td>La camarera termina y cierra la puerta</td><td>Libre</td></tr>
+    </tbody>
+  </table></div>
+  <p class="muted">Si un carro entra y sale sin que se abra la puerta, no cuenta como ocupación y aparece en los reportes para revisarlo.</p>
+
+  <h2>Estado del proyecto</h2>
+  <p>El software se probó con un simulador. Todavía no se ha probado en una habitación real, y aún falta confirmar qué sensor funciona bien sobre las puertas y cortinas metálicas.</p>
+</main>
+<script>
+  // En GitHub Pages la dirección dice de qué repositorio viene esta página.
+  const owner = location.hostname.split('.')[0];
+  const repo = location.pathname.split('/')[1];
+  document.getElementById('repo').href = `https://github.com/${owner}/${repo}`;
+</script>
+</body>
+</html>

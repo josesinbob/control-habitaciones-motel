@@ -1,0 +1,18 @@
+[Unit]
+Description=Sistema de control de habitaciones
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/moteles/server
+ExecStart=/usr/bin/node --disable-warning=ExperimentalWarning src/server.js
+Restart=always
+RestartSec=3
+Environment=PORT=3000
+Environment=MIN_CLEAN_SECONDS=90
+Environment=OFFLINE_SECONDS=90
+
+[Install]
+WantedBy=multi-user.target
